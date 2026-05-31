@@ -75,7 +75,7 @@ export class StoriesPageHandler implements PageHandler {
             node.style.pointerEvents = 'none';
         }
         let wrapperDiv = document.querySelector('body>div:not([hidden])>div>div>div:not([hidden])>div:not([hidden])>div>div section')
-        if (checkType() == "android" && this.isHighLights) {
+        if (checkType() == "android") {
             wrapperDiv = document.querySelector('body>div:not([hidden])>div>div>div:not([hidden])>div:not([hidden])>div>div>div>div')
         }
         if (!wrapperDiv) {

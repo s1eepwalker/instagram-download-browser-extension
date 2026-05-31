@@ -47,25 +47,27 @@ function attachExploreNavigation(video: HTMLVideoElement) {
 }
 
 export function handleStoriesVideoVolumeChange(e: Event) {
-    if (!(e.target instanceof HTMLVideoElement)) return
-    if (volumeChangeGuard.get(e.target)) return;
-    volumeChangeGuard.set(e.target, true);
+    const target = e.target;
+    if (!(target instanceof HTMLVideoElement)) return
+    if (volumeChangeGuard.get(target)) return;
+    volumeChangeGuard.set(target, true);
     try {
-        const isMutingBtn = document.querySelector(`section ${audioIsMutedSVGPath}`);
-        const isUnmutingBtn = document.querySelector(`section ${audioIsPlayingSVGPath}`)
+        const sectionNode = target.closest("section")
+        if (!sectionNode) return;
+        const isMutingBtn = sectionNode.querySelector(audioIsMutedSVGPath);
+        const isUnmutingBtn = sectionNode.querySelector(audioIsPlayingSVGPath)
         const newEvent = new MouseEvent('click', {
             view: window,
             bubbles: true,
             cancelable: true
         });
-        if (!e.target.muted && isMutingBtn) {
+        if (!target.muted && isMutingBtn) {
             isMutingBtn.dispatchEvent(newEvent)
         }
-        if (e.target.muted && isUnmutingBtn) {
+        if (target.muted && isUnmutingBtn) {
             isUnmutingBtn.dispatchEvent(newEvent)
         }
     } finally {
-        const target = e.target;
         setTimeout(() => {
             volumeChangeGuard.set(target, false);
         }, 100);

@@ -1,16 +1,27 @@
 import { CLASS_CUSTOM_BUTTON } from '../constants';
 import { handleVideoCoverDownloadBtn } from './button';
-import { initStorageCache } from './utils/storage';
-import { registeredHandlers } from './handlers';
+import { initStorageCache, storageCache } from './utils/storage';
 import type { PageHandler } from './handlers';
+import { registeredHandlers } from './handlers';
 
 let activeHandler: PageHandler | null = null;
+
+function shouldDoNothing() {
+    if (window.location.host === 'www.threads.com' && !storageCache.settings.setting_enable_threads) {
+        return true;
+    }
+    const pathnameList = window.location.pathname.split("/").filter(e => e)
+    if (pathnameList.length === 3 && pathnameList[0] === "p" && pathnameList[2] === "comments") {
+        return true
+    }
+    return document.hidden
+}
 
 async function init() {
     await initStorageCache();
 
     setInterval(() => {
-        if (document.hidden) return;
+        if (shouldDoNothing()) return;
         requestIdleCallback(processPage);
     }, 2 * 1000);
 
