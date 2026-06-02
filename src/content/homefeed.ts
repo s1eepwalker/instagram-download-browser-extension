@@ -1,5 +1,5 @@
 import type { PageHandler } from "./handlers";
-import { CLASS_CUSTOM_BUTTON, likeIconSelector, tagIconSelector } from "../constants";
+import { CLASS_CUSTOM_BUTTON, likeOrUnlikeIconSelector, tagIconSelector } from "../constants";
 import type { IconColor } from "../types/global";
 import { addCustomBtn } from "./button";
 import { postOnClicked } from "./post";
@@ -30,7 +30,7 @@ export class FeedPageHandler implements PageHandler {
                     img.style.zIndex = '999';
                 });
             }
-            const likeBtn = articleList[i].querySelector(likeIconSelector);
+            const likeBtn = articleList[i].querySelector(likeOrUnlikeIconSelector);
             if (likeBtn && articleList[i].getElementsByClassName(CLASS_CUSTOM_BUTTON).length === 0) {
                 addCustomBtn(likeBtn.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode, iconColor);
             }

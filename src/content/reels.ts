@@ -7,7 +7,7 @@ import type { IconColor } from '../types/global';
 import { handleVideoMaskClip } from "./utils/video";
 import { addCustomBtn } from './button';
 import type { PageHandler } from './handlers';
-import { likeIconSelector } from '../constants';
+import { likeOrUnlikeIconSelector } from '../constants';
 import { storageCache } from './utils/storage';
 
 function findReels(obj: Record<string, any>): Reels.XdtApiV1ClipsHomeConnectionV2 | undefined {
@@ -35,7 +35,7 @@ export class ReelsPageHandler implements PageHandler {
                 ? document.querySelectorAll('section>main>div>div')
                 : document.querySelectorAll('section>main>div>div>div');
         for (const item of reelsList) {
-            const likeBtn = item.querySelector(likeIconSelector);
+            const likeBtn = item.querySelector(likeOrUnlikeIconSelector);
             if (likeBtn && item.getElementsByClassName(CLASS_CUSTOM_BUTTON).length === 0) {
                 addCustomBtn(
                     likeBtn.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode,

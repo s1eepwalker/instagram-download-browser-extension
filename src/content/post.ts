@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { checkType, downloadResource, getUrlFromInfoApi, openInNewTab, } from './utils/fn';
 import { getMediaName } from './utils/filename';
 import { getCurrentStepFromDotsList, getParentArticleNode } from "./utils/dom";
-import { CLASS_CUSTOM_BUTTON, likeIconSelector, MediaType, tagIconSelector } from "../constants";
+import { CLASS_CUSTOM_BUTTON, likeOrUnlikeIconSelector, MediaType, tagIconSelector } from "../constants";
 import { storageCache } from './utils/storage';
 import type { IconColor } from '../types/global';
 import { handleVideoMaskClip } from "./utils/video";
@@ -210,7 +210,7 @@ export class PostPageHandler implements PageHandler {
                 .forEach((img) => (img.style.zIndex = '999'));
         }
 
-        const likeBtn = wrapperNode?.querySelector(likeIconSelector);
+        const likeBtn = wrapperNode?.querySelector(likeOrUnlikeIconSelector);
         const btnsContainer =
             document.querySelector('div[role="presentation"] section') ||
             document.querySelector('main[role="main"] section') ||
